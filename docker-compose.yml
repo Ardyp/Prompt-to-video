@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - STORAGE_BACKEND=local
+      - LOCAL_STORAGE_PATH=/app/storage
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./storage:/app/storage
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  # Celery Worker for background tasks
+  celery:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: celery -A app.celery_app worker --loglevel=info
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - STORAGE_BACKEND=local
+      - LOCAL_STORAGE_PATH=/app/storage
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./storage:/app/storage
+    depends_on:
+      - redis
+      - backend
+    restart: unless-stopped
+
+  # Redis for task queue
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # Frontend (for production)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  redis_data:

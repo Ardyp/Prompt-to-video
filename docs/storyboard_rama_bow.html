@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Storyboard: Rama Breaks Shiva's Bow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background: linear-gradient(135deg, #1a0a00 0%, #2d1810 50%, #1a0a00 100%);
+            color: #f4e4c8;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, transparent 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(90deg, #d4af37, #f4d03f, #d4af37);
+            color: #1a0a00;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: #d4af37;
+            text-shadow: 0 0 30px rgba(212,175,55,0.5);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #c9a86c;
+            font-style: italic;
+        }
+
+        .prompt-box {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 800px;
+        }
+
+        .prompt-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .prompt-text {
+            font-size: 1.3rem;
+            color: #f4e4c8;
+            line-height: 1.6;
+        }
+
+        .storyboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .frame {
+            background: #0d0705;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(212,175,55,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .frame:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(212,175,55,0.2);
+        }
+
+        .frame-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(180deg, #2d1810 0%, #1a0a00 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .frame-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(212,175,55,0.1) 0%, transparent 70%);
+        }
+
+        .frame-visual {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .frame-visual .emoji {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .frame-visual .scene-text {
+            font-size: 0.9rem;
+            color: #c9a86c;
+            font-style: italic;
+        }
+
+        .frame-content {
+            padding: 20px;
+        }
+
+        .frame-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .frame-time {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: #d4af37;
+        }
+
+        .frame-duration {
+            font-size: 0.8rem;
+            color: #888;
+            background: rgba(255,255,255,0.1);
+            padding: 4px 10px;
+            border-radius: 10px;
+        }
+
+        .frame-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: #f4e4c8;
+            margin-bottom: 10px;
+        }
+
+        .frame-description {
+            font-size: 0.95rem;
+            color: #a89070;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .frame-audio {
+            background: rgba(212,175,55,0.1);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .audio-icon {
+            font-size: 1.2rem;
+        }
+
+        .audio-text {
+            font-size: 0.85rem;
+            color: #c9a86c;
+        }
+
+        .specs {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .spec-card {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .spec-value {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+
+        .spec-label {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .cost-breakdown {
+            margin-top: 50px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .cost-breakdown h3 {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cost-row:last-child {
+            border-bottom: none;
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 2px solid rgba(212,175,55,0.3);
+        }
+
+        .cost-row.total {
+            font-size: 1.2rem;
+            color: #d4af37;
+        }
+
+        .provider-badge {
+            font-size: 0.8rem;
+            background: rgba(212,175,55,0.2);
+            padding: 3px 10px;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, #d4af37, #f4d03f);
+            color: #1a0a00;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212,175,55,0.3); }
+            50% { box-shadow: 0 0 40px rgba(212,175,55,0.5); }
+        }
+
+        .frame:nth-child(4) {
+            animation: glow 2s infinite;
+        }
+
+        .divine-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,215,0,0.3) 0%, transparent 60%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge">🎬 AI Video Storyboard</span>
+            <h1>राम - Rama Breaks Shiva's Bow</h1>
+            <p class="subtitle">From the Epic Ramayana • Swayamvara of Sita</p>
+            
+            <div class="prompt-box">
+                <div class="prompt-label">Original Prompt</div>
+                <div class="prompt-text">
+                    "Rama Breaks the Shiva's bow in the hall. Theme is Ancient Hindu"
+                </div>
+            </div>
+        </header>
+
+        <div class="storyboard">
+            <!-- Frame 1 -->
+            <div class="frame">
+                <div class="frame-image">
+                    <div class="frame-visual">
+                        <span class="emoji">🏛️</span>
+                        <div class="scene-text">Golden pillars • Oil lamps • Royal court</div>
+                    </div>
+                </div>
+                <div class="frame-content">
+                    <div class="frame-header">
+                        <span class="frame-time">0:00 - 0:02</span>
+                        <span class="frame-duration">2 sec</span>
+                    </div>
+                    <h3 class="frame-title">The Grand Hall</h3>
+                    <p class="frame-description">
+                        Establishing shot of King Janaka's magnificent palace. 
+                        Golden pillars rise to ornate ceilings. Oil lamps flicker, 
+                        casting warm light on intricate Hindu carvings. Kings and 
+                        princes sit in anticipation on either side.
+                    </p>
+                    <div class="frame-audio">
+                        <span class="audio-icon">🔊</span>
+                        <span class="audio-text">Ambient: Temple bells, murmuring crowd, sitar melody</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame 2 -->
+            <div class="frame">
+                <div class="frame-image">
+                    <div class="frame-visual">
+                        <span class="emoji">🏹</span>
+                        <div class="scene-text">The legendary Pinaka • Divine aura</div>
+                    </div>
+                </div>
+                <div class="frame-content">
+                    <div class="frame-header">
+                        <span class="frame-time">0:02 - 0:04</span>
+                        <span class="frame-duration">2 sec</span>
+                    </div>
+                    <h3 class="frame-title">Shiva's Bow Revealed</h3>
+                    <p class="frame-description">
+                        Camera slowly reveals the massive Shiva Dhanush (Pinaka) 
+                        resting on a decorated pedestal. A divine blue aura emanates 
+                        from the legendary weapon. Failed princes look on in defeat.
+                    </p>
+                    <div class="frame-audio">
+                        <span class="audio-icon">🔊</span>
+                        <span class="audio-text">Deep resonant hum, ethereal tones</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame 3 -->
+            <div class="frame">
+                <div class="frame-image">
+                    <div class="frame-visual">
+                        <span class="emoji">🙏</span>
+                        <div class="scene-text">Prince Rama • Divine calm • Blue skin radiance</div>
+                    </div>
+                </div>
+                <div class="frame-content">
+                    <div class="frame-header">
+                        <span class="frame-time">0:04 - 0:06</span>
+                        <span class="frame-duration">2 sec</span>
+                    </div>
+                    <h3 class="frame-title">Rama Approaches</h3>
+                    <p class="frame-description">
+                        Young Prince Rama, emanating divine radiance with a hint 
+                        of blue skin, walks calmly toward the bow. His expression 
+                        is serene, fearless. Sage Vishwamitra watches with knowing 
+                        eyes. Gasps ripple through the crowd.
+                    </p>
+                    <div class="frame-audio">
+                        <span class="audio-icon">🔊</span>
+                        <span class="audio-text">Footsteps on marble, hushed whispers, building tension</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame 4 -->
+            <div class="frame">
+                <div class="frame-image">
+                    <div class="frame-visual">
+                        <span class="emoji">💪</span>
+                        <div class="scene-text">Effortless lift • Shock and awe</div>
+                    </div>
+                </div>
+                <div class="frame-content">
+                    <div class="frame-header">
+                        <span class="frame-time">0:06 - 0:08</span>
+                        <span class="frame-duration">2 sec</span>
+                    </div>
+                    <h3 class="frame-title">The Divine Lift</h3>
+                    <p class="frame-description">
+                        In a moment that defies belief, Rama lifts the massive bow 
+                        effortlessly - the same bow that countless mighty warriors 
+                        could not even move. The crowd gasps in collective awe. 
+                        Rama begins to string the bow.
+                    </p>
+                    <div class="frame-audio">
+                        <span class="audio-icon">🔊</span>
+                        <span class="audio-text">Dramatic orchestra swell, collective gasp, wood creaking</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame 5 (Hero Shot) -->
+            <div class="frame">
+                <div class="frame-image" style="background: radial-gradient(circle at center, #ffd700 0%, #1a0a00 70%);">
+                    <div class="divine-effect"></div>
+                    <div class="frame-visual">
+                        <span class="emoji">⚡💥✨</span>
+                        <div class="scene-text">THE BREAK • Divine explosion • Celestial flowers</div>
+                    </div>
+                </div>
+                <div class="frame-content">
+                    <div class="frame-header">
+                        <span class="frame-time">0:08 - 0:10</span>
+                        <span class="frame-duration">2 sec</span>
+                    </div>
+                    <h3 class="frame-title">⚡ THE THUNDEROUS BREAK ⚡</h3>
+                    <p class="frame-description">
+                        With a sound like a thousand thunders, the divine bow 
+                        SNAPS! A blinding flash of golden light erupts. Shockwaves 
+                        ripple through the hall. Celestial flowers rain from above. 
+                        Princess Sita's face lights up with joy. The prophecy is fulfilled.
+                    </p>
+                    <div class="frame-audio">
+                        <span class="audio-icon">🔊</span>
+                        <span class="audio-text">THUNDEROUS CRACK! Divine chorus, cymbal crash, raining petals</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame 6 -->
+            <div class="frame">
+                <div class="frame-image">
+                    <div class="frame-visual">
+                        <span class="emoji">🌸👑💕</span>
+                        <div class="scene-text">Sita's joy • Divine union • Celebration</div>
+                    </div>
+                </div>
+                <div class="frame-content">
+                    <div class="frame-header">
+                        <span class="frame-time">0:10 - 0:12</span>
+                        <span class="frame-duration">2 sec (extended)</span>
+                    </div>
+                    <h3 class="frame-title">Destiny Fulfilled</h3>
+                    <p class="frame-description">
+                        Slow motion: flower petals continue to fall. Sita steps 
+                        forward with the victory garland. Rama stands humble 
+                        amidst the chaos. Their eyes meet - two avatars recognizing 
+                        each other. The crowd erupts in celebration.
+                    </p>
+                    <div class="frame-audio">
+                        <span class="audio-icon">🔊</span>
+                        <span class="audio-text">Triumphant music, conch shells, "Jai Shri Ram!" chants</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="specs">
+            <div class="spec-card">
+                <div class="spec-value">10s</div>
+                <div class="spec-label">Duration</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-value">1080p</div>
+                <div class="spec-label">Resolution</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-value">24fps</div>
+                <div class="spec-label">Frame Rate</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-value">16:9</div>
+                <div class="spec-label">Aspect Ratio</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-value">✓</div>
+                <div class="spec-label">Native Audio</div>
+            </div>
+            <div class="spec-card">
+                <div class="spec-value">94.6</div>
+                <div class="spec-label">Quality Score</div>
+            </div>
+        </div>
+
+        <div class="cost-breakdown">
+            <h3>💰 Generation Cost Breakdown</h3>
+            <div class="cost-row">
+                <span>Language Detection <span class="provider-badge">Lingua</span></span>
+                <span>FREE</span>
+            </div>
+            <div class="cost-row">
+                <span>Voice Synthesis <span class="provider-badge">Fish Audio</span></span>
+                <span>$0.001</span>
+            </div>
+            <div class="cost-row">
+                <span>Video Generation (10s × $0.40) <span class="provider-badge">Veo 3.1</span></span>
+                <span>$4.00</span>
+            </div>
+            <div class="cost-row">
+                <span>Audio Merge</span>
+                <span>Included (Native)</span>
+            </div>
+            <div class="cost-row total">
+                <span><strong>Total Cost</strong></span>
+                <span><strong>$4.00</strong></span>
+            </div>
+        </div>
+
+        <footer>
+            <p>This storyboard represents the expected output from the Prompt-to-Video pipeline</p>
+            <p>Using: Google Veo 3.1 (Video) + Fish Audio (Voice) + Lingua (Language Detection)</p>
+            <a href="API_SETUP.md" class="cta-button">🚀 Generate This Video</a>
+        </footer>
+    </div>
+</body>
+</html>
