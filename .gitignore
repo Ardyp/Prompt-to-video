@@ -60,6 +60,13 @@ temp/
 # Redis
 dump.rdb
 
+# Node.js / Frontend
+node_modules/
+.npm
+.yarn
+dist/
+build/
+
 # OS
 .DS_Store
 Thumbs.db
