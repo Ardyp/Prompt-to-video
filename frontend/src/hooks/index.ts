@@ -300,3 +300,6 @@ export function useCostEstimate(duration: number, resolution: string) {
     enabled: duration > 0,
   })
 }
+
+// Export prompt enhancement hook
+export { usePromptEnhancement } from './usePromptEnhancement'

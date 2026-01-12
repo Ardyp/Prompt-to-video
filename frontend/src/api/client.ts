@@ -34,6 +34,21 @@ class ApiClient {
     return response.json()
   }
 
+  // Generic POST method
+  async post<T>(endpoint: string, data: any): Promise<{ data: T }> {
+    const result = await this.request<T>(endpoint, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+    return { data: result }
+  }
+
+  // Generic GET method
+  async get<T>(endpoint: string): Promise<{ data: T }> {
+    const result = await this.request<T>(endpoint)
+    return { data: result }
+  }
+
   // Language Detection
   async detectLanguage(text: string): Promise<LanguageDetectionResponse> {
     return this.request('/language/detect', {
@@ -135,6 +150,7 @@ class ApiClient {
 }
 
 export const api = new ApiClient()
+export const apiClient = api  // Export as apiClient for consistency
 
 // WebSocket helper for real-time progress
 export function createProgressWebSocket(
