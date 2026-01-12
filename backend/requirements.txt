@@ -24,6 +24,7 @@ google-generativeai==0.8.0  # Google Veo 3.1
 openai==1.12.0  # For Sora 2 when available
 elevenlabs==1.0.0
 httpx==0.26.0  # For Fish Audio API
+anthropic==0.40.0  # NEW: For LLM-based prompt enhancement (2026 best practice)
 
 # Audio/Video Processing
 ffmpeg-python==0.2.0

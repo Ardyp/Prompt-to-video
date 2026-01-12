@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  Sparkles, 
-  Mic, 
-  Video, 
-  Settings, 
+import {
+  Sparkles,
+  Mic,
+  Video,
+  Settings,
   Play,
   Download,
   RefreshCw,
@@ -14,13 +14,15 @@ import {
   Check,
   X,
   Volume2,
+  Wand2,
 } from 'lucide-react'
-import { 
-  useVideoGeneration, 
-  useLanguageDetection, 
+import {
+  useVideoGeneration,
+  useLanguageDetection,
   useAudioRecorder,
   useCostEstimate,
 } from './hooks'
+import { PromptEnhancer } from './components/PromptEnhancer'
 import type { FullGenerationRequest } from './types'
 
 // Language flag mapping
@@ -37,6 +39,7 @@ function App() {
   const [resolution, setResolution] = useState('720p')
   const [style, setStyle] = useState('')
   const [showSettings, setShowSettings] = useState(false)
+  const [showEnhancer, setShowEnhancer] = useState(false)
 
   const { detectedLanguage, isDetecting } = useLanguageDetection(prompt)
   const { data: costEstimate } = useCostEstimate(duration, resolution)
@@ -53,6 +56,13 @@ function App() {
       detect_language: true,
     }
     generation.startGeneration(request)
+  }
+
+  const handleEnhancedPromptSelected = (enhancedPrompt: string, negativePrompt: string) => {
+    setPrompt(enhancedPrompt)
+    setShowEnhancer(false)
+    // Optionally scroll to the prompt input
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const getStatusMessage = () => {
@@ -108,7 +118,7 @@ function App() {
           className="glass rounded-3xl p-6 md:p-8 mb-8"
         >
           {/* Prompt Input */}
-          <div className="relative mb-6">
+          <div className="relative mb-4">
             <textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
@@ -116,7 +126,7 @@ function App() {
               className="w-full h-32 bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-zinc-500 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all"
               disabled={generation.isGenerating}
             />
-            
+
             {/* Language Badge */}
             <AnimatePresence>
               {detectedLanguage && (
@@ -135,6 +145,42 @@ function App() {
               )}
             </AnimatePresence>
           </div>
+
+          {/* AI Enhance Button */}
+          <div className="mb-6">
+            <button
+              onClick={() => setShowEnhancer(!showEnhancer)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border transition-all ${
+                showEnhancer
+                  ? 'border-purple-500/50 bg-purple-500/10 text-purple-400'
+                  : 'border-white/10 bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white'
+              }`}
+              disabled={generation.isGenerating}
+            >
+              <Wand2 className="w-4 h-4" />
+              <span className="text-sm font-medium">
+                {showEnhancer ? 'Hide' : 'Show'} AI Prompt Enhancer
+              </span>
+              <ChevronDown className={`w-4 h-4 transition-transform ml-auto ${showEnhancer ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+
+          {/* Prompt Enhancer Component */}
+          <AnimatePresence>
+            {showEnhancer && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden mb-6"
+              >
+                <PromptEnhancer
+                  prompt={prompt}
+                  onEnhanced={handleEnhancedPromptSelected}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Quick Settings */}
           <div className="flex flex-wrap gap-3 mb-6">
