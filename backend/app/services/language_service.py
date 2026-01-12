@@ -13,7 +13,8 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 import structlog
-from lingua import Language, LanguageDetectorBuilder
+import lingua
+from lingua import LanguageDetectorBuilder
 
 from app.config import LanguageProvider, get_settings
 from app.models import LanguageDetectionResponse, LanguageInfo
@@ -24,36 +25,36 @@ settings = get_settings()
 
 # Language code mapping for Lingua
 LINGUA_TO_ISO = {
-    Language.ENGLISH: ("en", "English"),
-    Language.SPANISH: ("es", "Spanish"),
-    Language.FRENCH: ("fr", "French"),
-    Language.GERMAN: ("de", "German"),
-    Language.ITALIAN: ("it", "Italian"),
-    Language.PORTUGUESE: ("pt", "Portuguese"),
-    Language.DUTCH: ("nl", "Dutch"),
-    Language.RUSSIAN: ("ru", "Russian"),
-    Language.CHINESE: ("zh", "Chinese"),
-    Language.JAPANESE: ("ja", "Japanese"),
-    Language.KOREAN: ("ko", "Korean"),
-    Language.ARABIC: ("ar", "Arabic"),
-    Language.HINDI: ("hi", "Hindi"),
-    Language.TURKISH: ("tr", "Turkish"),
-    Language.POLISH: ("pl", "Polish"),
-    Language.VIETNAMESE: ("vi", "Vietnamese"),
-    Language.THAI: ("th", "Thai"),
-    Language.INDONESIAN: ("id", "Indonesian"),
-    Language.SWEDISH: ("sv", "Swedish"),
-    Language.DANISH: ("da", "Danish"),
-    Language.NORWEGIAN: ("no", "Norwegian"),
-    Language.FINNISH: ("fi", "Finnish"),
-    Language.CZECH: ("cs", "Czech"),
-    Language.GREEK: ("el", "Greek"),
-    Language.HEBREW: ("he", "Hebrew"),
-    Language.UKRAINIAN: ("uk", "Ukrainian"),
-    Language.ROMANIAN: ("ro", "Romanian"),
-    Language.HUNGARIAN: ("hu", "Hungarian"),
-    Language.BENGALI: ("bn", "Bengali"),
-    Language.TAMIL: ("ta", "Tamil"),
+    lingua.Language.ENGLISH: ("en", "English"),
+    lingua.Language.SPANISH: ("es", "Spanish"),
+    lingua.Language.FRENCH: ("fr", "French"),
+    lingua.Language.GERMAN: ("de", "German"),
+    lingua.Language.ITALIAN: ("it", "Italian"),
+    lingua.Language.PORTUGUESE: ("pt", "Portuguese"),
+    lingua.Language.DUTCH: ("nl", "Dutch"),
+    lingua.Language.RUSSIAN: ("ru", "Russian"),
+    lingua.Language.CHINESE: ("zh", "Chinese"),
+    lingua.Language.JAPANESE: ("ja", "Japanese"),
+    lingua.Language.KOREAN: ("ko", "Korean"),
+    lingua.Language.ARABIC: ("ar", "Arabic"),
+    lingua.Language.HINDI: ("hi", "Hindi"),
+    lingua.Language.TURKISH: ("tr", "Turkish"),
+    lingua.Language.POLISH: ("pl", "Polish"),
+    lingua.Language.VIETNAMESE: ("vi", "Vietnamese"),
+    lingua.Language.THAI: ("th", "Thai"),
+    lingua.Language.INDONESIAN: ("id", "Indonesian"),
+    lingua.Language.SWEDISH: ("sv", "Swedish"),
+    lingua.Language.DANISH: ("da", "Danish"),
+    lingua.Language.NORWEGIAN: ("no", "Norwegian"),
+    lingua.Language.FINNISH: ("fi", "Finnish"),
+    lingua.Language.CZECH: ("cs", "Czech"),
+    lingua.Language.GREEK: ("el", "Greek"),
+    lingua.Language.HEBREW: ("he", "Hebrew"),
+    lingua.Language.UKRAINIAN: ("uk", "Ukrainian"),
+    lingua.Language.ROMANIAN: ("ro", "Romanian"),
+    lingua.Language.HUNGARIAN: ("hu", "Hungarian"),
+    lingua.Language.BENGALI: ("bn", "Bengali"),
+    lingua.Language.TAMIL: ("ta", "Tamil"),
     # Add more as needed
 }
 
